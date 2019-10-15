@@ -1,0 +1,9 @@
+GET http://localhost:7071/api/StarterFunction HTTP/1.1
+
+{
+    "name": "Damian"
+}
+
+###
+
+GET http://localhost:7071/runtime/webhooks/durabletask/instances/5c706ce00de44a6198528f587c49990d?taskHub=DurableFunctionsHub&connection=Storage&code=v10qPF6EQ4eoMWTRqKAxaw6mAQVkcE4LBnqN3aVLSkqTs3gFk00ZVA== HTTP/1.1
