@@ -22,7 +22,14 @@ namespace TO_Approval.Approval
         {
             message = new SendGridMessage();
             message.AddTo(Environment.GetEnvironmentVariable("SendGrid:To"));
-            message.AddContent("text/html", string.Format(Environment.GetEnvironmentVariable("SendGrid:ApprovalEmailTemplate"), requestMetadata.Subject, requestMetadata.Requestor, requestMetadata.ReferenceUrl, requestMetadata.InstanceId, Environment.GetEnvironmentVariable("Function:BasePath")));
+
+            message.AddContent("text/html", string.Format(
+                Environment.GetEnvironmentVariable("SendGrid:ApprovalEmailTemplate"), 
+                requestMetadata.Subject, 
+                requestMetadata.Requestor, 
+                requestMetadata.ReferenceUrl, 
+                requestMetadata.InstanceId, 
+                Environment.GetEnvironmentVariable("Function:BasePath")));
             message.SetFrom(Environment.GetEnvironmentVariable("SendGrid:From"));
             message.SetSubject(String.Format(Environment.GetEnvironmentVariable("SendGrid:SubjectTemplate"), requestMetadata.Subject, requestMetadata.Requestor));
             log.LogInformation($"Message '{message.Subject}' sent!");

@@ -52,25 +52,22 @@ namespace To.Orchestration
                 // and off to the races!
                 Task winner = await Task.WhenAny(approvalResponse, timeoutTask);
 
-                ApprovalResponseMetadata approvalResponseMetadata = new ApprovalResponseMetadata()
+                ApprovalResponseMessage responseMessage = new ApprovalResponseMessage()
                 {
+                    Id = context.InstanceId,
                     ReferenceUrl = approvalRequestMetadata.ReferenceUrl
                 };
 
                 if (winner == approvalResponse)
                 {
                     if (approvalResponse.Result)
-                    {
-                        approvalResponseMetadata.DestinationContainer = "approved";
-                    }
+                        responseMessage.Result = "approved";
                     else
-                    {
-                        approvalResponseMetadata.DestinationContainer = "rejected";
-                    }
+                        responseMessage.Result = "rejected";
                 }
                 else
                 {
-                    approvalResponseMetadata.DestinationContainer = "rejected";
+                    responseMessage.Result = "rejected";
                 }
 
                 if (!timeoutTask.IsCompleted)
@@ -79,8 +76,8 @@ namespace To.Orchestration
                     timeoutCts.Cancel();
                 }
 
-                // Once the approval process has been finished, the Blob is to be moved to the corresponding container.
-                await context.CallActivityAsync<string>("PublishApprovalResult", approvalResponseMetadata);
+                // Once the approval process has been finished, the result is published to Storage Queue.
+                await context.CallActivityAsync<string>("PublishApprovalResult", responseMessage);
                 return isApproved;
             }
         }
