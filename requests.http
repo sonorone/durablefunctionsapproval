@@ -16,8 +16,8 @@ Content-Type: application/json
 
 {
     "ApprovalType" : "Email",
-    "ReferenceUrl" : "test",
+    "ReferenceUrl" : "No_reference",
     "Requestor" : "DMurawiecki@hoopp.com",
-    "Subject" : "Request for Approval",
-    "Approver" : "DMurawiecki@hoopp.com"
+    "Subject" : "$2500 MacBook Approval",
+    "Approver" : "damianmurawiecki@gmail.com"
 }

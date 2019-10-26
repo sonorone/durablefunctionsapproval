@@ -30,7 +30,7 @@ namespace TO_Approval.Approval
                 requestMetadata.ReferenceUrl, 
                 requestMetadata.InstanceId, 
                 Environment.GetEnvironmentVariable("Function:BasePath")));
-            message.SetFrom(Environment.GetEnvironmentVariable(requestMetadata.Requestor));
+            message.SetFrom(requestMetadata.Requestor);
             message.SetSubject(String.Format(Environment.GetEnvironmentVariable("SendGrid:SubjectTemplate"), requestMetadata.Subject, requestMetadata.Requestor));
             log.LogInformation($"Message '{message.Subject}' sent!");
             log.LogInformation(message.Contents[0].Value);
