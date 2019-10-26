@@ -21,7 +21,7 @@ namespace TO_Approval.Approval
         public static void Run([ActivityTrigger] ApprovalRequestMetadata requestMetadata, [SendGrid] out SendGridMessage message, ILogger log)
         {
             message = new SendGridMessage();
-            message.AddTo(Environment.GetEnvironmentVariable("SendGrid:To"));
+            message.AddTo(requestMetadata.Approver);
 
             message.AddContent("text/html", string.Format(
                 Environment.GetEnvironmentVariable("SendGrid:ApprovalEmailTemplate"), 
@@ -30,7 +30,7 @@ namespace TO_Approval.Approval
                 requestMetadata.ReferenceUrl, 
                 requestMetadata.InstanceId, 
                 Environment.GetEnvironmentVariable("Function:BasePath")));
-            message.SetFrom(Environment.GetEnvironmentVariable("SendGrid:From"));
+            message.SetFrom(Environment.GetEnvironmentVariable(requestMetadata.Requestor));
             message.SetSubject(String.Format(Environment.GetEnvironmentVariable("SendGrid:SubjectTemplate"), requestMetadata.Subject, requestMetadata.Requestor));
             log.LogInformation($"Message '{message.Subject}' sent!");
             log.LogInformation(message.Contents[0].Value);
