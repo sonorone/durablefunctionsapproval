@@ -33,6 +33,7 @@ namespace TO_Approval.Approval
             message.SetFrom(Environment.GetEnvironmentVariable("SendGrid:From"));
             message.SetSubject(String.Format(Environment.GetEnvironmentVariable("SendGrid:SubjectTemplate"), requestMetadata.Subject, requestMetadata.Requestor));
             log.LogInformation($"Message '{message.Subject}' sent!");
+            log.LogInformation(message.Contents[0].Value);
         }
     }
 }
