@@ -25,7 +25,6 @@ namespace To.Orchestration
             [OrchestrationTrigger] DurableOrchestrationContext context)
         {
             var isApproved = false;
-            string meansOfApproval = Environment.GetEnvironmentVariable("Workflow:MeansOfApproval");
             ApprovalRequestMetadata approvalRequestMetadata = context.GetInput<ApprovalRequestMetadata>();
             approvalRequestMetadata.InstanceId = context.InstanceId;
 
