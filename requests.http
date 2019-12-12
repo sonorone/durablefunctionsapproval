@@ -5,19 +5,7 @@ Content-Type: application/json
     "ApprovalType" : "Email",
     "ReferenceUrl" : "test",
     "Requestor" : "mr_miyagi@gmail.com",
-    "Subject" : "$2500 MacBook Approval",
+    "Subject" : "$3000 Trx Approval",
     "Approver" : "damianmurawiecki@gmail.com"
 }
 
-###
-
-POST https://durablefunctions-approval-demo.azurewebsites.net/api/StarterFunction HTTP/1.1
-Content-Type: application/json
-
-{
-    "ApprovalType" : "Email",
-    "ReferenceUrl" : "No_reference",
-    "Requestor" : "DMurawiecki@hoopp.com",
-    "Subject" : "$2500 MacBook Approval",
-    "Approver" : "damianmurawiecki@gmail.com"
-}
